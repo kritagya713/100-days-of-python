@@ -28,12 +28,12 @@ def get_coordinates_pro(name):
             res = data[0]
             # Check if it's actually in Nepal
             if "nepal" in res.get('display_name', '').lower():
-                print(f"✅ Found: {res['display_name'][:60]}...")
+                print(f" Found: {res['display_name'][:60]}...")
                 return (float(res['lat']), float(res['lon']))
         
-        print(f"❌ Error: Could not find '{name}' in Nepal.")
+        print(f" Error: Could not find '{name}' in Nepal.")
     except Exception as e:
-        print(f"📡 Connection Error: {e}")
+        print(f" Connection Error: {e}")
     return None
 
 def get_distance_matrix_bulk(coords):
@@ -60,7 +60,7 @@ while True:
     if stop: location_names.append(stop)
 
 if len(location_names) < 3:
-    print("❌ Please enter at least 3 locations!")
+    print(" Please enter at least 3 locations!")
     exit()
 
 # --- 3. PROCESSING ---
@@ -75,7 +75,7 @@ for name in location_names:
         valid_names.append(name)
 
 if len(valid_coords) < 2:
-    print("❌ Not enough valid locations found. Try being more specific.")
+    print(" Not enough valid locations found. Try being more specific.")
     exit()
 
 print(f"[2/3] Fetching road network data...")
@@ -111,7 +111,7 @@ order = solve_tsp(matrix)
 
 # --- 5. FINAL REPORT ---
 if order:
-    print("\n" + "🚀 OPTIMIZED DELIVERY ROUTE " + "="*10)
+    print("\n" + " OPTIMIZED DELIVERY ROUTE " + "="*10)
     total_m = 0
     for i, node_idx in enumerate(order):
         label = "START/FINISH" if (i == 0 or i == len(order)-1) else f"STOP {i}"
@@ -124,8 +124,8 @@ if order:
     fuel_cost = (total_km / 40) * 202 # Rs. 202/L at 40km/l mileage
     
     print("-" * 40)
-    print(f"🛣️  Total Distance: {total_km:.2f} km")
-    print(f"💰 Total Fuel Cost: Rs. {fuel_cost:.2f}")
+    print(f"  Total Distance: {total_km:.2f} km")
+    print(f" Total Fuel Cost: Rs. {fuel_cost:.2f}")
     print("=" * 40)
 else:
-    print("❌ Optimization failed. Check your locations.")
+    print(" Optimization failed. Check your locations.")
